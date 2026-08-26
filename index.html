@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoRa IoT Monitoring Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="dashboard">
+    <header>
+        <div>
+            <h1>LoRa IoT Monitoring</h1>
+            <p>Source – Relay – Gateway Performance Dashboard</p>
+        </div>
+        <div id="status" class="status">● DEMO MODE</div>
+    </header>
+
+    <section class="cards">
+        <div class="card"><span>Total Packets</span><strong id="totalPackets">--</strong></div>
+        <div class="card"><span>Packets Lost</span><strong id="packetsLost">--</strong></div>
+        <div class="card"><span>Delivery Rate</span><strong id="deliveryRate">--</strong></div>
+        <div class="card"><span>Latest RSSI</span><strong id="latestRSSI">--</strong></div>
+        <div class="card"><span>Latest SNR</span><strong id="latestSNR">--</strong></div>
+        <div class="card"><span>RSSI Gain</span><strong id="rssiGain">--</strong></div>
+    </section>
+
+    <section class="panel">
+        <label>Packet Type:
+            <select id="filter">
+                <option value="ALL">All</option>
+                <option value="DIRECT">Direct</option>
+                <option value="RELAY">Relay</option>
+            </select>
+        </label>
+        <button onclick="loadDashboard()">Refresh</button>
+    </section>
+
+    <section class="charts">
+        <div class="panel">
+            <h2>RSSI History</h2>
+            <canvas id="rssiChart"></canvas>
+        </div>
+        <div class="panel">
+            <h2>SNR History</h2>
+            <canvas id="snrChart"></canvas>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Recent Packets</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Packet</th><th>Type</th><th>Gateway RSSI</th>
+                        <th>SNR</th><th>Relay RSSI</th><th>Gain</th><th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="packetTable"></tbody>
+            </table>
+        </div>
+    </section>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
